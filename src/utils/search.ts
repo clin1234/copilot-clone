@@ -3,31 +3,34 @@ import { SnippetResult } from "./extractors/ExtractorAbstract";
 
 import { FetchPageResult, fetchPageTextContent } from "./fetchPageContent";
 
+import * as vscode from 'vscode';
+
 /**
  * Cache results to avoid VSCode keep refetching
  */
-let cachedResults: { [keyword: string]: SnippetResult[] } = {}
+const cachedResults: { [keyword: string]: SnippetResult[] } = {};
 
 // Send search query to google, get answers from stackoverflow
 // then extract and return code results
 export async function search(keyword: string): Promise<null | { results: SnippetResult[] }> {
 
     if (keyword in cachedResults) {
-        return Promise.resolve({ results: cachedResults[keyword] })
+        return Promise.resolve({ results: cachedResults[keyword] });
     }
+    
 
     /* eslint "no-async-promise-executor": "off" */
-    return new Promise(async (resolve, reject) => {
+    let promise = new Promise<{ results: SnippetResult[] }>(async (resolve, reject) => {
 
         let results: SnippetResult[] = [];
         let fetchResult: FetchPageResult;
-
+        
         try {
             for (const i in SnippetExtractors) {
                 const extractor = SnippetExtractors[i];
                 const urls = await extractor.extractURLFromKeyword(keyword);
 
-                for (const y in urls) {
+                 for (const y in urls) {
                     fetchResult = await fetchPageTextContent(urls[y]);
                     results = results.concat(extractor.extractSnippets(fetchResult));
                 }
@@ -39,5 +42,11 @@ export async function search(keyword: string): Promise<null | { results: Snippet
         } catch (err) {
             reject(err);
         }
+        
+        // When promise resolved, show finished loading for 5 seconds
+        vscode.window.setStatusBarMessage("Finished loading results", 5000);
     });
+    
+    vscode.window.setStatusBarMessage("Loading Captain Stack results...", promise);
+    return promise;
 }
