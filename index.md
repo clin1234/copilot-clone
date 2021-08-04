@@ -1,4 +1,4 @@
-![Captain Stack](./icon.png)
+![Captain Stack](https://github.com/clin1234/copilot-clone/blob/master/icon.png "PNG logo of Captain Stack: a pilot's helmet with StackOverflow's logo")
 
 # Captain Stack — Code suggestion for VSCode
 
