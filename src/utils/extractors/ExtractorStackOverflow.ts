@@ -24,7 +24,8 @@ export default class ExtractorStackOverflow extends ExtractorAbstract {
                 // p/s: they often about explaining the something
                 code: item.querySelector("code").textContent,
                 sourceURL: `https://${this.URL}${item.querySelector(".js-share-link").href}`,
-                hasCheckMark: item.querySelector("iconCheckmarkLg") != null
+                hasCheckMark: item.querySelector("iconCheckmarkLg") != null,
+                language: 'f'
             }) as SnippetResult)
             .filter(item => isCodeValid(item.code));
 

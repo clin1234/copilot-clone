@@ -66,6 +66,11 @@
 					"type": "integer",
 					"description": "Limit the max number of results",
 					"default": 12
+				},
+				"captainStack.settings.currentLanguageOnly": {
+					"type": "boolean",
+					"description": "Restrict results to only the language of the current file.",
+					"default": false
 				}
 			}
 		}

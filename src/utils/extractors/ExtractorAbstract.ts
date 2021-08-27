@@ -40,6 +40,7 @@ export type SnippetResult = {
     code: string,
     hasCheckMark: boolean,
     sourceURL: string,
+    language: string
 }
 
 export type SnippetPageResult = {

@@ -17,7 +17,8 @@ class ExtractorGithubGist extends ExtractorAbstract_1.default {
                 votes: parseInt(doc.querySelector(".social-count")?.textContent),
                 code: cleanContent(snippet),
                 sourceURL: options.url,
-                hasCheckMark: false
+                hasCheckMark: false,
+                language: doc.querySelector(".language")
             };
             return [item];
         };

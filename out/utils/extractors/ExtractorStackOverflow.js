@@ -20,7 +20,8 @@ class ExtractorStackOverflow extends ExtractorAbstract_1.default {
                 // p/s: they often about explaining the something
                 code: item.querySelector("code").textContent,
                 sourceURL: `https://${this.URL}${item.querySelector(".js-share-link").href}`,
-                hasCheckMark: item.querySelector("iconCheckmarkLg") != null
+                hasCheckMark: item.querySelector("iconCheckmarkLg") != null,
+                language: 'f'
             }))
                 .filter(item => utils_1.isCodeValid(item.code));
             results.sort(sortSnippetResultFn);
