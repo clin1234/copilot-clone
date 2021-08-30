@@ -18,11 +18,11 @@ type IConfig = {
 export function getConfig() {
     const config = vscode.workspace.getConfiguration("captainStack");
 
-    let sites = {
+    const sites = {
         "stackoverflow.com": config.settings.sites.stackoverflow,
         "gist.github.com": config.settings.sites.githubGist,
         "ideone.com": config.settings.sites.ideone
-    }
+    };
 
     return {
         settings: {
