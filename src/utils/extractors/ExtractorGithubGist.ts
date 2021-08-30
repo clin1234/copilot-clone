@@ -2,6 +2,7 @@ import ExtractorAbstract, { SnippetResult } from "./ExtractorAbstract";
 
 import { parseHTML } from "linkedom";
 import { FetchPageResult } from "../fetchPageContent";
+import { DOMTokenList } from "linkedom/types/dom/token-list";
 
 export default class ExtractorGithubGist extends ExtractorAbstract {
 
@@ -15,13 +16,15 @@ export default class ExtractorGithubGist extends ExtractorAbstract {
         const snippet = doc.querySelector("table.highlight")?.textContent;
 
         if (!snippet) return [];
+        //const classList: string[] = [...doc.querySelector('div[class^="type-"]').classList];
+        //console.log(doc.querySelector('div[class^="type-"]'))
 
         const item: SnippetResult = {
             votes: parseInt(doc.querySelector(".social-count")?.textContent),
             code: cleanContent(snippet),
             sourceURL: options.url,
             hasCheckMark: false,
-            language: doc.querySelector(".language")
+            language: 'test'//classList.find(e => e.includes('type-'))!.split('-')[1]
         };
 
         return [item];

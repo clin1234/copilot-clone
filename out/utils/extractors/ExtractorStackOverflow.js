@@ -9,9 +9,12 @@ class ExtractorStackOverflow extends ExtractorAbstract_1.default {
         this.name = "Stackoverflow";
         this.URL = "stackoverflow.com";
         this.extractSnippets = (options) => {
-            const target = linkedom_1.parseHTML(options.textContent);
-            const answersWithCodeBlock = Array.from(target.window.document.querySelectorAll(".answer"))
+            const target = (0, linkedom_1.parseHTML)(options.textContent);
+            const doc = target.window.document;
+            const answerQueries = doc.querySelectorAll(".answer");
+            const answersWithCodeBlock = [...answerQueries]
                 .filter((item) => item.querySelector("code") != null);
+            //const classList: string[] = [...doc.querySelector('code[class^="language-"]').classList];
             const results = answersWithCodeBlock
                 .map((item) => ({
                 textContent: item.textContent,
@@ -21,9 +24,9 @@ class ExtractorStackOverflow extends ExtractorAbstract_1.default {
                 code: item.querySelector("code").textContent,
                 sourceURL: `https://${this.URL}${item.querySelector(".js-share-link").href}`,
                 hasCheckMark: item.querySelector("iconCheckmarkLg") != null,
-                language: 'f'
+                language: 'test' //classList.find(e => e.includes('language-'))!.split('-')[1]
             }))
-                .filter(item => utils_1.isCodeValid(item.code));
+                .filter(item => (0, utils_1.isCodeValid)(item.code));
             results.sort(sortSnippetResultFn);
             return results;
         };

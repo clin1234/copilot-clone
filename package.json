@@ -51,6 +51,12 @@
 					"type": "boolean",
 					"default": false
 				},
+				"captainStack.settings.sites.ideone": {
+					"title": "ideone.com",
+					"description": "Enable searching code in Ideone",
+					"type": "boolean",
+					"default": false
+				},
 				"captainStack.settings.maxResults": {
 					"type": "integer",
 					"description": "Limit the max number of results",

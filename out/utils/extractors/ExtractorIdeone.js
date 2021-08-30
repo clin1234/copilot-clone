@@ -2,22 +2,24 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ExtractorAbstract_1 = require("./ExtractorAbstract");
 const https_1 = require("https");
+const linkedom_1 = require("linkedom");
 class ExtractorIdeone extends ExtractorAbstract_1.default {
     constructor() {
         super(...arguments);
         this.URL = 'ideone.com';
         this.name = 'Ideone';
         this.extractSnippets = (options) => {
+            const target = (0, linkedom_1.parseHTML)(options.textContent);
+            const doc = target.window.document;
             console.log(convertUrl(options.url));
             const result = {
-                /* TODO: Ideone has no equivalent of "votes", so
-                results will only display when only ideone.com is
-                chosen. */
+                /* TODO: Ideone has no equivalent of "votes", so results will only
+                display when only ideone.com is chosen. */
                 votes: 0,
                 code: getPlainfile(options.url),
                 sourceURL: options.url,
                 hasCheckMark: false,
-                language: ''
+                language: 'test' //doc.querySelector('a.lang-dropdown-menu-button span').textContent
             };
             return [result];
         };
@@ -25,8 +27,8 @@ class ExtractorIdeone extends ExtractorAbstract_1.default {
 }
 exports.default = ExtractorIdeone;
 function getPlainfile(url) {
-    const req = https_1.request(convertUrl(url), res => {
-        res.on('data', (d) => { });
+    const req = (0, https_1.request)(convertUrl(url), res => {
+        res.on('data', (d) => { console.log(d); });
     });
     req.on('error', (e) => console.error(`problem with request to ${convertUrl(url)}: ${e.message}`));
     req.on('uncaughtException', e => console.log(e));

@@ -13,13 +13,14 @@ function getConfig() {
     const config = vscode.workspace.getConfiguration("captainStack");
     let sites = {
         "stackoverflow.com": config.settings.sites.stackoverflow,
-        "gist.github.com": config.settings.sites.githubGist
+        "gist.github.com": config.settings.sites.githubGist,
+        "ideone.com": config.settings.sites.ideone
     };
     return {
         settings: {
             sites,
             maxResults: config.settings.maxResults
-        },
+        }
     };
 }
 exports.getConfig = getConfig;

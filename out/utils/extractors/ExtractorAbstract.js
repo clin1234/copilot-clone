@@ -9,7 +9,7 @@ class ExtractorAbstract {
         */
         this.extractURLFromKeyword = (keyword) => {
             return new Promise((resolve, reject) => {
-                fetchPageContent_1.fetchPageTextContent(config_1.getSearchURL(this.URL, keyword))
+                (0, fetchPageContent_1.fetchPageTextContent)((0, config_1.getSearchURL)(this.URL, keyword))
                     .then(rs => {
                     const regex = new RegExp(`(https://${this.URL}/[a-z0-9-/]+)`, "gi");
                     let urls = rs.textContent.match(regex);
@@ -21,7 +21,7 @@ class ExtractorAbstract {
         };
     }
     isEnabled() {
-        const config = config_1.getConfig();
+        const config = (0, config_1.getConfig)();
         return this.URL in config.settings.sites && config.settings.sites[this.URL];
     }
 }

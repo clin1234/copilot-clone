@@ -1,6 +1,7 @@
 import { FetchPageResult } from "../fetchPageContent";
 import ExtractorAbstract, { SnippetResult } from "./ExtractorAbstract";
 import { request } from "https";
+import { parseHTML } from "linkedom";
 
 
 export default class ExtractorIdeone extends ExtractorAbstract {
@@ -8,16 +9,18 @@ export default class ExtractorIdeone extends ExtractorAbstract {
     name = 'Ideone'
 
     extractSnippets = (options: FetchPageResult): SnippetResult[] => {
+        const target = parseHTML(options.textContent);
+        const doc = target.window.document;
+
         console.log(convertUrl(options.url));
         const result: SnippetResult = {
-            /* TODO: Ideone has no equivalent of "votes", so
-            results will only display when only ideone.com is
-            chosen. */
+            /* TODO: Ideone has no equivalent of "votes", so results will only
+            display when only ideone.com is chosen. */
             votes: 0,
             code: getPlainfile(options.url),
             sourceURL: options.url,
             hasCheckMark: false,
-            language: ''
+            language: 'test'//doc.querySelector('a.lang-dropdown-menu-button span').textContent
         };
         return [result];
     };

@@ -1,8 +1,9 @@
 import ExtractorAbstract, { SnippetResult } from "./ExtractorAbstract";
 
-import { parseHTML } from "linkedom";
+import { NodeList, parseHTML } from "linkedom";
 import { isCodeValid } from "./utils";
 import { FetchPageResult } from "../fetchPageContent";
+import { Element } from "linkedom/types/interface/element";
 
 export default class ExtractorStackOverflow extends ExtractorAbstract {
 
@@ -11,9 +12,13 @@ export default class ExtractorStackOverflow extends ExtractorAbstract {
 
     extractSnippets = (options: FetchPageResult): SnippetResult[] => {
         const target = parseHTML(options.textContent);
+        const doc = target.window.document;
+        const answerQueries: NodeList = doc.querySelectorAll(".answer");
         
-        const answersWithCodeBlock = Array.from(target.window.document.querySelectorAll(".answer"))
-            .filter((item: any) => item.querySelector("code") != null);
+        const answersWithCodeBlock: Element[] = [...answerQueries]
+            .filter((item: Element) => item.querySelector("code") != null);
+
+        //const classList: string[] = [...doc.querySelector('code[class^="language-"]').classList];
 
         const results = answersWithCodeBlock
             .map((item: any) => ({
@@ -25,7 +30,7 @@ export default class ExtractorStackOverflow extends ExtractorAbstract {
                 code: item.querySelector("code").textContent,
                 sourceURL: `https://${this.URL}${item.querySelector(".js-share-link").href}`,
                 hasCheckMark: item.querySelector("iconCheckmarkLg") != null,
-                language: 'f'
+                language: 'test'//classList.find(e => e.includes('language-'))!.split('-')[1]
             }) as SnippetResult)
             .filter(item => isCodeValid(item.code));
 
