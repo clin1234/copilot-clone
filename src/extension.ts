@@ -6,7 +6,7 @@ import { matchSearchPhrase } from './utils/matchSearchPhrase';
 export function activate(_: vscode.ExtensionContext) {
 
 	const provider: vscode.InlineCompletionItemProvider<vscode.InlineCompletionItem> = {
-		provideInlineCompletionItems: async (document, position, context, token) => {
+		provideInlineCompletionItems: async (document, position, _context, _token) => {
 			const textBeforeCursor = document.getText(
 				new vscode.Range(position.with(undefined, 0), position)
 			);
@@ -20,8 +20,10 @@ export function activate(_: vscode.ExtensionContext) {
 				try {
 					rs = await search(match.searchPhrase);
 				} catch (err) {
-					vscode.window.showErrorMessage(err.toString());
-					return { items: [] };
+					if (err instanceof Error) {
+						vscode.window.showErrorMessage(err.toString());
+						return { items: [] };
+					}
 				}
 
 				if (rs == null) {
