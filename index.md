@@ -1,4 +1,4 @@
-![Captain Stack](https://github.com/clin1234/copilot-clone/blob/master/icon.png "PNG logo of Captain Stack: a pilot's helmet with StackOverflow's logo")
+![Captain Stack](https://raw.githubusercontent.com/hieunc229/copilot-clone/master/logo.svg)
 
 # Captain Stack — Code suggestion for VSCode
 
@@ -7,7 +7,7 @@ This feature is somewhat similar to [Github Copilot](https://copilot.github.com/
 
 Have questions? [Join our Discord server](https://discord.gg/5F5tDsWFmp) [![Discord Chat](https://img.shields.io/discord/864164585070526475.svg)](https://discord.gg/5F5tDsWFmp)
 
-![Demo Video](./demo.gif)
+![Demo Video](https://github.com/hieunc229/copilot-clone/raw/master/demo.gif)
 
 ## Table of contents:
 
@@ -57,7 +57,23 @@ Make sure that `showInlineCompletions` is enabled in your settings!
 
 ---
 
-## 3. Notes
+## 3. Captain Stack configurations
+
+There are a few configurations available for Captain Stack. To open the configurationview:
+
+1. Click on the Cog icon at bottom left
+2. Choose **Settings**
+3. In the **Search settings** search box, enter "Captain Stack"
+
+### Available settings
+
+- `sites` allows to enable or disable a source site. By the default, only `Stackoverflow` is enabled.
+
+- `maxResults` is the maximum number of results. It's `12` by default. Note: Since Captain Stack will fetch all the results from a page, the final number of results could be more than `maxResults`
+
+---
+
+## 4. Notes
 
 - There are more code sources that should be considered besides StackOverflow
 - If you see `unsupported` error message, ignore it
@@ -70,8 +86,9 @@ If those factor became problems, the extension could be using their official API
 
 ---
 
-## 4. Changelog
+## 5. Changelog
 
+- Aug 15, 2021 - Added `sites` and `maxResults` configurations
 - Jul 31, 2021 — Create code extracting abstracting to add more code sources 
 - Jul 14, 2021 - Adapted to VS Code Insiders Release Version 1.59
 - Jul 01, 2021 - Added snippet source (thanks for [mechero's suggestion](https://news.ycombinator.com/item?id=27698687))
@@ -79,7 +96,7 @@ If those factor became problems, the extension could be using their official API
 
 ---
 
-## 5. Troubleshooting
+## 6. Troubleshooting
 
 ### Common reasons why you can't run Captain Stack:
 
@@ -97,7 +114,7 @@ If none of the above works, open a thread or join our [Discord channel and have 
 
 ---
 
-## 6. Contributors
+## 7. Contributors
 
 The plugins is available, thanks to:
 
