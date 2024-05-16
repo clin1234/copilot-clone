@@ -13,17 +13,18 @@ export default class ExtractorStackOverflow extends ExtractorAbstract {
         const target = parseHTML(options.textContent);
 
         const answersWithCodeBlock = Array.from(target.window.document.querySelectorAll(".answer"))
-            .filter((item: any) => item.querySelector("code") != null);
+            .filter((item: Element) => item.querySelector("code") != null);
 
-        const results = answersWithCodeBlock
-            .map((item: any) => ({
+        const results = (answersWithCodeBlock as HTMLAnchorElement[])
+            .map((item) => ({
                 textContent: item.textContent,
-                votes: parseInt(item.querySelector(".js-vote-count").textContent),
+                votes: parseInt(item.querySelector(".js-vote-count")!.textContent!),
 
                 // TODO: Handle answers with more than one code block
                 // p/s: they often about explaining the something
-                code: item.querySelector("code").textContent,
-                sourceURL: `https://${this.URL}${item.querySelector(".js-share-link").href}`,
+                code: item.querySelector("code")!.textContent,
+                // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
+                sourceURL: `https://${this.URL}${(item.querySelector(".js-share-link") as HTMLAnchorElement).href}`,
                 hasCheckMark: item.querySelector("iconCheckmarkLg") != null
             }) as SnippetResult)
             .filter(item => isCodeValid(item.code));

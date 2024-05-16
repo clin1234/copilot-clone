@@ -12,6 +12,7 @@ module.exports = {
   'plugin:@typescript-eslint/stylistic-type-checked'],
   rules: {
     semi: [2, "always"],
+    "prefer-promise-reject-errors": "off",
     "@typescript-eslint/no-unused-vars": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,

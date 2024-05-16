@@ -26,22 +26,22 @@ interface IConfig {
 }
 
 export function getConfig() {
-  const config = vscode.workspace.getConfiguration("captainStack");
+  const config: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration("captainStack.settings");
 
-  const sites = {
-    "stackoverflow.com": config.settings.sites.stackoverflow,
-    "gist.github.com": config.settings.sites.githubGist,
-    "openai.com": config.settings.sites.OpenAI,
-    "openrouter.ai": config.settings.sites.OpenRouter,
+  const sites: Record<string,boolean> = {
+    "stackoverflow.com": config.get("sites.stackoverflow")!,
+    "gist.github.com": config.get("sites.githubGist")!,
+    "openai.com": config.get("sites.OpenAI")!,
+    "openrouter.ai": config.get("sites.OpenRouter")!,
   };
 
   return {
     settings: {
       sites,
-      maxResults: config.settings.maxResults,
-      OpenAI: config.settings.OpenAI,
-      OpenRouter: config.settings.OpenRouter,
-      ai: config.settings.ai,
+      maxResults: config.get("maxResults"),
+      OpenAI: config.get("OpenAI"),
+      OpenRouter: config.get("OpenRouter"),
+      ai: config.get("ai"),
     },
   } as IConfig;
 }

@@ -7,9 +7,12 @@ export interface FetchPageResult {
 
 export function fetchPageTextContent(url: string): Promise<FetchPageResult> {
     return new Promise((resolve, reject) => {
-        return fetch(url)
-            .then(rs => rs.text())
-            .then(textContent => { resolve({textContent, url}); })
-            .catch(reject);
+        void (async () => {
+            return fetch(url)
+                .then(rs => rs.text())
+                .then(textContent => { resolve({ textContent, url }); })
+                // eslint-disable-next-line @typescript-eslint/use-unknown-in-catch-callback-variable
+                .catch(reject);
+        })();
     });
 }

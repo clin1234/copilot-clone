@@ -6,9 +6,9 @@ import { matchSearchPhrase } from "./utils/matchSearchPhrase";
 export function activate(_: vscode.ExtensionContext) {
   const provider: vscode.CompletionItemProvider = {
     // @ts-expect-error
-    provideInlineCompletionItems: async (document, position, context, token) => {
+    provideInlineCompletionItems: async (document: vscode.TextDocument, position: vscode.Position, context, token) => {
     // provideCompletionItems: async (document, position, context, token) => {
-      const textBeforeCursor = document.getText(
+      const textBeforeCursor: string = document.getText(
         new vscode.Range(position.with(undefined, 0), position)
       );
 
@@ -32,8 +32,10 @@ export function activate(_: vscode.ExtensionContext) {
               };
             });
           }
-        } catch (err: any) {
-          vscode.window.showErrorMessage(err.toString());
+        } catch (err) {
+          if (err instanceof Error)
+            // eslint-disable-next-line @typescript-eslint/no-floating-promises
+            vscode.window.showErrorMessage(err.toString());
         }
       }
       return { items };
