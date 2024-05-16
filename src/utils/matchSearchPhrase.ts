@@ -2,7 +2,7 @@ import CSConfig from "../config";
 import { window } from "vscode";
 
 
-type SearchMatchResult = {
+interface SearchMatchResult {
     commentSyntax: string,
     commentSyntaxEnd: string,
     searchPhrase: string,
@@ -20,7 +20,7 @@ export function matchSearchPhrase(input: string): SearchMatchResult | undefined 
 
         const [_, commentSyntax, searchPhrase, commentSyntaxEnd] = match;
 
-        // @ts-ignore
+        // @ts-expect-error
         let fileType = window.activeTextEditor.document.languageId;
 
         if (fileType === "plaintext") {

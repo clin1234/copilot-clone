@@ -3,8 +3,13 @@
 module.exports = {
   root: true,
   parser: "@typescript-eslint/parser",
+  parserOptions: {
+    project: true,
+    tsconfigRootDir: __dirname,
+  },
   plugins: ["@typescript-eslint"],
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  extends: ["eslint:recommended",'plugin:@typescript-eslint/strict-type-checked',
+  'plugin:@typescript-eslint/stylistic-type-checked'],
   rules: {
     semi: [2, "always"],
     "@typescript-eslint/no-unused-vars": 0,
@@ -14,4 +19,10 @@ module.exports = {
     "@typescript-eslint/ban-ts-ignore": 0,
 		"@typescript-eslint/ban-ts-comment": 0
   },
+  overrides: [
+    {
+      files: ['*.js', 'test/*'],
+      extends: ['plugin:@typescript-eslint/disable-type-checked'],
+    },
+  ],
 };

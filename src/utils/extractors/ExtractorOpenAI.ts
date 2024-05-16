@@ -29,7 +29,7 @@ export default class OpenAIGenerator extends ExtractorAbstract {
       ],
     });
 
-    return out.choices.map((c) => c.message.content || "");
+    return out.choices.map((c) => c.message.content ?? "");
   };
 
   extractSnippets = (options: FetchPageResult): SnippetResult[] => {

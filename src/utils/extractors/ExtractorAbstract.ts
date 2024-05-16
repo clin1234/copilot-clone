@@ -21,7 +21,7 @@ export default abstract class ExtractorAbstract {
       fetchPageTextContent(getSearchURL(this.URL, keyword))
         .then((rs) => {
           const regex = new RegExp(`(https://${this.URL}/[a-z0-9-/]+)`, "gi");
-          const urls = (rs.textContent.match(regex) || []).filter(
+          const urls = (rs.textContent.match(regex) ?? []).filter(
             (url, i, list) => list.indexOf(url) === i
           );
           resolve(urls);
@@ -31,14 +31,14 @@ export default abstract class ExtractorAbstract {
   };
 }
 
-export type SnippetResult = {
+export interface SnippetResult {
   votes: number;
   code: string;
   hasCheckMark: boolean;
   sourceURL: string;
-};
+}
 
-export type SnippetPageResult = {
+export interface SnippetPageResult {
   results: SnippetResult[];
   url: string;
-};
+}

@@ -12,9 +12,9 @@ export function getSearchURL(site: string, keyword: string) {
   )}`;
 }
 
-type IConfig = {
+interface IConfig {
   settings: {
-    sites: { [name: string]: boolean };
+    sites: Record<string, boolean>;
     maxResults: number;
     OpenAI?: { apiKey: string; model: string; systemPrompt?: string };
     OpenRouter?: { apiKey: string; model: string };
@@ -23,7 +23,7 @@ type IConfig = {
       systemPrompt?: string;
     };
   };
-};
+}
 
 export function getConfig() {
   const config = vscode.workspace.getConfiguration("captainStack");

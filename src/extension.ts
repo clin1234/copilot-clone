@@ -5,7 +5,7 @@ import { matchSearchPhrase } from "./utils/matchSearchPhrase";
 
 export function activate(_: vscode.ExtensionContext) {
   const provider: vscode.CompletionItemProvider = {
-    // @ts-ignore
+    // @ts-expect-error
     provideInlineCompletionItems: async (document, position, context, token) => {
     // provideCompletionItems: async (document, position, context, token) => {
       const textBeforeCursor = document.getText(
@@ -40,7 +40,7 @@ export function activate(_: vscode.ExtensionContext) {
     },
   };
 
-  // @ts-ignore
+  // @ts-expect-error
   vscode.languages.registerInlineCompletionItemProvider({ pattern: "**" }, provider);
 }
 

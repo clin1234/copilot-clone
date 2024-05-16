@@ -9,7 +9,7 @@ import { getConfig } from "../config";
 /**
  * Cache results to avoid VSCode keep refetching
  */
-const cachedResults: { [keyword: string]: SnippetResult[] } = {};
+const cachedResults: Record<string, SnippetResult[]> = {};
 
 // Send search query to google, get answers from stackoverflow
 // then extract and return code results
@@ -31,9 +31,7 @@ export async function search(
       let fetchResult: FetchPageResult;
 
       try {
-        for (const i in SnippetExtractors) {
-          const extractor = SnippetExtractors[i];
-
+        for (const extractor of SnippetExtractors) {
           if (extractor.isEnabled()) {
             if (extractor.generateCode) {
               if (!config.settings.OpenAI) {
@@ -45,7 +43,7 @@ export async function search(
               }
 
               const task = vscode.window.setStatusBarMessage(`Generate code...`);
-              // @ts-ignore
+              // @ts-expect-error
               const providerSettings = config.settings[extractor.name];
               const generated = await extractor.generateCode(keyword, {
                 ...providerSettings,

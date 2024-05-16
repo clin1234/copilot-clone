@@ -420,8 +420,7 @@ AttributeError: read`, false],
 test("Testing for 95% of tests to be valid", () => {
     let succeeded = 0;
     let failed = 0;
-    for (let i = 0; i < testCases.length; i++) {
-        const testCase = testCases[i];
+    for (const testCase of testCases) {
         const result = isCodeValid(testCase[0]);
         result == testCase[1] ? succeeded++ : failed++;
     }

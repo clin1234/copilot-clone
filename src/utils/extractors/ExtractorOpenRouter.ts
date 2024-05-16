@@ -36,7 +36,7 @@ export default class OpenRouterGenerator extends ExtractorAbstract {
       ],
     });
 
-    return out.choices.map((c) => c.message.content || "");
+    return out.choices.map((c) => c.message.content ?? "");
   };
 
   extractSnippets = (options: FetchPageResult): SnippetResult[] => {
